@@ -1,0 +1,103 @@
+
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+
+
+body {
+    background-color: #eeeeee;
+}
+
+
+
+
+.box {
+    border: solid  #e8e8e8 1px;
+    position: relative;
+    /*right: 150px;*/
+    background-color: #ffffff;
+    width: 250px;
+    height: 70px;
+    border-radius: 5px; /* 圆角 */
+    margin: 30px auto 0;
+    padding:5px 10px;
+
+}
+
+
+
+.arrow {
+    position: absolute;
+    top: 15px;
+    left: -16px;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    border: solid 8px;
+    border-color: transparent #ffffff transparent transparent;
+}
+
+
+.line {
+    width: 2px;
+    height: 120%;
+    background: #acacac;
+    position: absolute;
+    left: -16px;
+    top: 32px;
+
+
+}
+
+.dot {
+    position: absolute;
+    top: 18px;
+    left: -20px;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #ffffff;
+
+}
+
+.text {
+    margin-top: 5px;
+    font-weight: bolder;
+}
+
+.text span {
+    float:right;
+    color: #8d8d8d;
+}
+
+.detail {
+    margin-top: 10px;
+    font-size: 10px;
+    color: #8d8d8d;
+}
+
+.btnCheckChat {
+    float: right;
+}
+
+.dotChat {
+    background-color: green;
+}
+
+.dotCall {
+    background-color: red;
+}
+.dotReview {
+    background-color: gold;
+}
+
+.boxReview {
+    height: auto;
+}
+
+.review span {
+    color: #ffff26;
+}

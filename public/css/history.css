@@ -1,0 +1,123 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.start {
+    margin: 10px auto;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #adadad;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    line-height: 50px;
+}
+
+.midLine {
+    width: 2px;
+    height: 100%;
+    background: #d6d6d6;
+    position: absolute;
+    left: 50%;
+
+}
+
+.send {
+    position: relative;
+    right: 90px;
+    width: 150px;
+    height: 80px;
+    border-radius: 5px; /* 圆角 */
+    margin: 30px auto 0;
+
+}
+
+.sendRight {
+    left: 90px;
+}
+
+.arrow {
+    position: absolute;
+    top: 5px;
+    right: -16px;
+    width: 0;
+    height: 0;
+    border: solid 8px;
+    border-color: transparent transparent transparent orange;
+}
+
+.arrowRight {
+    border-color:transparent royalblue transparent transparent;
+    left: -15px;
+}
+.dot {
+    position: absolute;
+    top: 8px;
+    right: -21px;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: orange;
+}
+
+.dotRight {
+    left: -19px;
+}
+
+.btn {
+    margin: 30px auto;
+    width: 50px;
+    right: 40px;
+    position: relative;
+}
+
+.btnAdd {
+    font-weight: bold;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border-color: transparent;
+    background-color: orange;
+    outline: none;
+}
+
+.time {
+    height: 32px;
+    text-align: right;
+    font-weight: bold;
+    padding-right: 5px;
+    line-height: 32px;
+    color: #ffffff;
+}
+.timeRight {
+    text-align: left;
+    padding-left: 5px;
+}
+.type {
+    height: 48px;
+    text-align: right;
+    font-size: 8px;
+    font-weight: bold;
+    border-radius: 5px;
+    line-height: 48px;
+    background-color: #cdcdcd;
+    padding-right: 5px;
+
+}
+.typeRight {
+    text-align: left;
+    padding-left: 5px;
+}
+
+hr {
+    margin-top:10px;
+}
+.arrowBtn {
+    top:16px;
+}
+.dotBtn {
+    top:19px;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>workSheet</title>
+    <link rel="stylesheet" type="text/css" href="workSheet.css">
+    <script src="jquery.min.js"></script>
+
+</head>
+<body>
+<div class="workSheet">
+    <form>
+        <div id="time">工单时间：</div>
+        技能组：
+        <select id="group">
+            <option value="火车票">火车票</option>
+            <option value="飞机票">飞机票</option>
+            <option value="电影票">电影票</option>
+        </select>
+        <br/>
+
+        业务类型：
+        <select id="type">
+            <option value="投诉举报">投诉举报</option>
+            <option value="申请退款">申请退款</option>
+            <option value="咨询回复">咨询回复</option>
+        </select>
+        <br/>
+
+        <br/>
+
+        <textarea   rows="7"  placeholder="其他说明：" id="moreInfo" ></textarea>
+        <br/>
+
+        <div id="divSub">
+            <input id="btnSub" type="button" value="创建工单">
+        </div>
+
+        <div id="show"></div>
+    </form>
+
+
+</div>
+
+<script src="workSheet.js"></script>
+</body>
+</html>

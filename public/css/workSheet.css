@@ -1,0 +1,32 @@
+body {
+    background-color: #e8e8e8;
+}
+
+.workSheet {
+
+    margin: 0 auto;
+    width: 80%;
+}
+
+
+
+
+
+#divSub {
+    width: 80px;
+    margin: 0 auto;
+}
+
+#btnSub {
+
+    width: 80px;
+
+}
+
+#moreInfo {
+    width: 90%;
+    margin:  0 auto ;
+    border-color: aquamarine;
+    border-radius: 10px;
+    outline: none;
+}
