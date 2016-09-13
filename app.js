@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser')
 var cookieSession = require('cookie-session')
 var dbUrl = 'mongodb://localhost/egoo'
 var logger = require('morgan')
+var WorkSheet = require('./app/models/workSheet')
 
 mongoose.Promise = global.Promise;
 mongoose.connect(dbUrl)
@@ -23,7 +24,7 @@ app.use(cookieSession({
 }))
 app.use(express.static(path.join(__dirname,'public')))
 
-//app.locals.moment = require('moment')
+app.locals.moment = require('moment')
 
 app.listen(port);
 
@@ -32,4 +33,71 @@ console.log('egoo started on port '+port);
 
 app.get("/",function(req,res) {
 	res.render('history',{title: '咨询历史'})
+})
+
+app.get("/workSheet",function(req,res) {
+	res.render('workSheet',
+		{
+			title: '工单信息',
+			workSheet: {
+				busType: '',
+				busGroup: '',
+				phone1: '',
+				clientName: '',
+				address: '',
+				content: ''
+			}
+		})
+})
+
+app.post("/workSheet/new",function(req,res) {
+	var id = req.body.workSheet._id
+	var workSheetObj = req.body.workSheet
+	var _workSheet
+
+	if (id !== 'undefined') {
+		WorkSheet.findById(id,function(err,workSheet) {
+			if(err) {
+				console.log(err)
+			}
+
+			_workSheet = _.extend(workSheet,workSheetObj)
+			_workSheet.save(function(err,workSheet) {
+				if(err) {
+					console.log(err)
+				}
+
+				res.redirect('/list')
+			})
+		})
+	}else {
+		_workSheet = new WorkSheet({
+			busType: workSheetObj.busType,
+			busGroup: workSheetObj.busGroup,
+			phone1: workSheetObj.phone1,
+			clientName: workSheetObj.clientName,
+			address: workSheetObj.address,
+			content: workSheetObj.content
+		})
+		_workSheet.save(function (err,workSheet) {
+			if(err) {
+				console.log(err)
+			}
+			res.redirect('/list')
+		})
+	}
+})
+
+
+app.get('/list',function(req,res) {
+	WorkSheet.fetch(function(err,workSheets) {
+		if (err) {
+			console.log(err)
+		}
+		res.render('list',{
+			title:'工单列表页',
+			workSheets: workSheets
+		});
+		
+	})
 })

@@ -116,7 +116,7 @@ function readHistorty(){
 
 function addWorkSheet() {
 
-    window.location.replace("http://localhost/egoo/workSheet.html");
+    window.location.href="/workSheet";
 
 }
 
