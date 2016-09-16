@@ -10,6 +10,16 @@ var dbUrl = 'mongodb://localhost/egoo'
 var logger = require('morgan')
 var WorkSheet = require('./app/models/workSheet')
 
+//连接mysql数据库读取录音url
+var mysql = require('mysql')
+var mysqlConfig = {
+		host: '120.25.88.24',
+		user: 'root',
+		password: 'egoonetsql3466',
+		database: 'egoo'
+	}
+//结束
+
 mongoose.Promise = global.Promise;
 mongoose.connect(dbUrl)
 
@@ -50,12 +60,14 @@ app.get("/workSheet",function(req,res) {
 	}
 	var userid = req.query.userid
 	if(!userid) {
-		userid='admin'
+		userid=''
 	}
 	var sessionid = req.query.sessionid
 	if(!sessionid) {
 		sessionid='admin'
 	}
+
+
 	res.render('workSheet',
 		{
 			title: '工单信息',
@@ -78,6 +90,23 @@ app.post("/workSheet/new",function(req,res) {
 	var id = req.body.workSheet._id
 	var workSheetObj = req.body.workSheet
 	var _workSheet
+	
+//	 select recordurl where calluuid = sessionid
+	// var mysqlConn = mysql.createConnection(mysqlConfig)
+	// mysqlConn.connect();
+	// var recordUrlSelectSql = 'SELECT recordurl FROM T_RECORD_INFO WHERE calluuid = ?'
+	// var params = [workSheetObj.sessionid]
+	// mysqlConn.query(recordUrlSelectSql,params,function(err,result) {
+	// 	if(err) {
+	// 		console.log('recordurl SELECT err:'+err)
+	// 	}
+	// 	var recordurl = result[0].recordurl
+
+		
+	// })
+	// mysqlConn.end()
+	
+//   nodejs 为异步，写在回调函数中
 
 	if (id !== 'undefined') {
 		WorkSheet.findById(id,function(err,workSheet) {
@@ -105,8 +134,10 @@ app.post("/workSheet/new",function(req,res) {
 			phone1: workSheetObj.phone1,
 			clientName: workSheetObj.clientName,
 			address: workSheetObj.address,
-			content: workSheetObj.content
+			content: workSheetObj.content,
+			recordurl: ''
 		})
+
 		_workSheet.save(function (err,workSheet) {
 			if(err) {
 				console.log(err)
@@ -114,6 +145,7 @@ app.post("/workSheet/new",function(req,res) {
 			res.redirect('/list')
 		})
 	}
+	
 })
 
 
@@ -128,4 +160,32 @@ app.get('/list',function(req,res) {
 		});
 		
 	})
+})
+
+app.post('/record/:sessionid',function(req,res) {
+	var sessionid = req.params.sessionid
+	//	 select recordurl where calluuid = sessionid
+	var mysqlConn = mysql.createConnection(mysqlConfig)
+	mysqlConn.connect();
+	var recordUrlSelectSql = 'SELECT recordurl FROM T_RECORD_INFO WHERE calluuid = ?'
+	var params = [sessionid]
+	mysqlConn.query(recordUrlSelectSql,params,function(err,result) {
+		if(err) {
+			console.log('recordurl SELECT err:'+err)
+		}
+		if(result[0]) {
+			res.json({
+				recordUrl: result[0].recordurl,
+				success: 1
+			})
+		}else{
+			res.json({
+				success: 0
+			})
+		}
+
+	})
+	mysqlConn.end()
+	
+//   nodejs 为异步，写在回调函数中
 })

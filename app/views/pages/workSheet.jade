@@ -18,6 +18,8 @@ html
 				.workSheet
 					form(method="post",action="/workSheet/new",role="form")
 						input(type="hidden",name="workSheet[_id]",value="#{workSheet._id}")
+						input(type="hidden",name="workSheet[tenantid]",value="#{workSheet.tenantid}")
+						input(type="hidden",name="workSheet[agentid]",value="#{workSheet.agentid}")
 						input(type="hidden",name="workSheet[sessionid]",value="#{workSheet.sessionid}")
 						.form-group.col-xs-offset-1.col-xs-10
 							label(for="busType") 业务类型:
@@ -41,7 +43,7 @@ html
 							input#phone1.form-control(name="workSheet[phone1]",value="#{workSheet.phone1}")
 						.form-group.col-xs-offset-1.col-xs-10
 							label.control-label(for="clientName") 客户姓名:
-							input#clientName.form-control(type="text",name="",value="")
+							input#clientName.form-control(type="text",name="workSheet[userid]",value="#{workSheet.userid}")
 						.form-group.col-xs-offset-1.col-xs-10
 							label.control-label(for="phone2") 联系电话:
 							input#phone2.form-control(type="text",name="",value="占位未用",disabled)
