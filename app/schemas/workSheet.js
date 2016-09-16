@@ -23,6 +23,7 @@ var WorkSheetSchema = new mongoose.Schema({
 	clientName: String,
 	address: String,
 	content: String,
+	recordurl: String,
 	meta: {
 		createdAt: {
 			type: Date,

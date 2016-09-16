@@ -31,18 +31,42 @@ app.listen(port);
 console.log('egoo started on port '+port);
 //require('./config/routes')(app)
 
-app.get("/",function(req,res) {
+app.get("/history",function(req,res) {
 	res.render('history',{title: '咨询历史'})
 })
 
 app.get("/workSheet",function(req,res) {
+	var phone1 = req.query.phone
+	if(!phone1) {
+		phone1=''
+	}
+	var tenantid = req.query.tenantid
+	if(!tenantid) {
+		tenantid='admin'
+	}
+	var agentid = req.query.agentid
+	if(!agentid) {
+		agentid='admin'
+	}
+	var userid = req.query.userid
+	if(!userid) {
+		userid='admin'
+	}
+	var sessionid = req.query.sessionid
+	if(!sessionid) {
+		sessionid='admin'
+	}
 	res.render('workSheet',
 		{
 			title: '工单信息',
 			workSheet: {
+				tenantid: tenantid,
+				agentid: agentid,
+				userid: userid,
+				sessionid: sessionid,
 				busType: '',
 				busGroup: '',
-				phone1: '',
+				phone1: phone1,
 				clientName: '',
 				address: '',
 				content: ''
@@ -72,6 +96,10 @@ app.post("/workSheet/new",function(req,res) {
 		})
 	}else {
 		_workSheet = new WorkSheet({
+			tenantid: workSheetObj.tenantid,
+			agentid: workSheetObj.agentid,
+			userid: workSheetObj.userid,
+			sessionid: workSheetObj.sessionid,
 			busType: workSheetObj.busType,
 			busGroup: workSheetObj.busGroup,
 			phone1: workSheetObj.phone1,

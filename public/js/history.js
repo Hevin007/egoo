@@ -103,14 +103,14 @@ function readHistorty(){
     };
 
 
-    $.get("server.php",getval,function(data){
-        //向服务器发送请求，返回工单历史信息
-        alert(data.length);
-        for(var i=0;i<data.length;i++) {
-            createSend(data[i]["time"],data[i]["label"]);
-        }
+    // $.get("server.php",getval,function(data){
+    //     //向服务器发送请求，返回工单历史信息
+    //     alert(data.length);
+    //     for(var i=0;i<data.length;i++) {
+    //         createSend(data[i]["time"],data[i]["label"]);
+    //     }
 
-    });
+    // });
 }
 
 

@@ -6,72 +6,73 @@ html
 		link(href="/libs/bootstrap/dist/css/bootstrap.min.css",rel="stylesheet")
 		script(src="/libs/jquery/dist/jquery.min.js")
 		script(src="/libs/bootstrap/dist/js/bootstrap.min.js")
+		style.
+			.margin20 {
+				margin-top: 10px;
+			}
 	body
 		.container
 			.row
-				.page-header
+				.page-header.col-xs-offset-1.col-xs-10.margin20
 					h1=title
 				.workSheet
-					form.form-horizontal(method="post",action="/workSheet/new")
+					form(method="post",action="/workSheet/new",role="form")
 						input(type="hidden",name="workSheet[_id]",value="#{workSheet._id}")
-						.form-group
-							label.col-sm-1.control-label(for="busType") 业务类型:
-							.col-sm-3
-								select#busType.form-control(name="workSheet[busType]",value="#{workSheet.busType}")
-									option(value="投诉举报") 投诉举报
-									option(value="申请申诉") 申请申诉
-									option(value="咨询回复") 咨询回复
-							label.col-sm-1.control-label(for="busGroup") 业务分类:
-							.col-sm-3
-								select#busGroup.form-control(name="workSheet[busGroup]",value="#{workSheet.busGroup}")
-									option(value="火车票") 火车票
-									option(value="飞机票") 飞机票
-									option(value="电影票") 电影票
-							label.col-sm-1.control-label(for="busTag") 业务标签:
-							.col-sm-3
-								select#busTag.form-control(name="",value="",disabled)
-									option 占位未用
-									option 2
-						.form-group
-							label.col-sm-1.control-label(for="phone1") 来电号码:
-							.col-sm-3
-								input#phone1.form-control(name="workSheet[phone1]",value="#{workSheet.phone1}")
-							label.col-sm-1.control-label(for="clientName") 客户姓名:
-							.col-sm-3
-								input#clientName.form-control(type="text",name="",value="")
-							label.col-sm-1.control-label(for="phone2") 联系电话:
-							.col-sm-3
-								input#phone2.form-control(type="text",name="",value="占位未用",disabled)
-						.form-group
-							label.col-sm-1.control-label(for="phone3") 手机号码:
-							.col-sm-3
-								input#phone3.form-control(name="",value="占位未用",disabled)
-							label.col-sm-1.control-label(for="address") 联系地址:
-							.col-sm-3
-								input#address.form-control(name="workSheet[address]",value="#{workSheet.address}")
-						.form-group
-							label.col-sm-1.control-label(for="content") 内容:
-							.col-sm-11
-								textarea#content.form-control(name="workSheet[content]",value="#{workSheet.content}",rows="5")
+						input(type="hidden",name="workSheet[sessionid]",value="#{workSheet.sessionid}")
+						.form-group.col-xs-offset-1.col-xs-10
+							label(for="busType") 业务类型:
+							select#busType.form-control(name="workSheet[busType]",value="#{workSheet.busType}")
+								option(value="投诉举报") 投诉举报
+								option(value="申请申诉") 申请申诉
+								option(value="咨询回复") 咨询回复
+						.form-group.col-xs-offset-1.col-xs-10
+							label(for="busGroup") 业务分类:
+							select#busGroup.form-control(name="workSheet[busGroup]",value="#{workSheet.busGroup}")
+								option(value="火车票") 火车票
+								option(value="飞机票") 飞机票
+								option(value="电影票") 电影票
+							//- label.col-xs-1.control-label(for="busTag") 业务标签:
+							//- .col-xs-3
+							//- 	select#busTag.form-control(name="",value="",disabled)
+							//- 		option 占位未用
+							//- 		option 2
+						.form-group.col-xs-offset-1.col-xs-10
+							label.control-label(for="phone1") 来电号码:
+							input#phone1.form-control(name="workSheet[phone1]",value="#{workSheet.phone1}")
+						.form-group.col-xs-offset-1.col-xs-10
+							label.control-label(for="clientName") 客户姓名:
+							input#clientName.form-control(type="text",name="",value="")
+						.form-group.col-xs-offset-1.col-xs-10
+							label.control-label(for="phone2") 联系电话:
+							input#phone2.form-control(type="text",name="",value="占位未用",disabled)
+						.form-group.col-xs-offset-1.col-xs-10
+							label.control-label(for="phone3") 手机号码:
+							input#phone3.form-control(name="",value="占位未用",disabled)
+						.form-group.col-xs-offset-1.col-xs-10
+							label.control-label(for="address") 联系地址:
+							input#address.form-control(name="workSheet[address]",value="#{workSheet.address}")
+						.form-group.col-xs-offset-1.col-xs-10
+							label.control-label(for="content") 内&#12288;&#12288;容:
+							textarea#content.form-control(name="workSheet[content]",value="#{workSheet.content}",rows="5")
 						//- .form-group
-						//- 	label.col-sm-1.control-label 处理结果:
+						//- 	label.col-xs-1.control-label 处理结果:
 						//- .form-group
-						//- 	.col-sm-6
-						//- 		.col-sm-2
-						//- 		label.col-sm-2 是否回复:
-						//- 		label.col-sm-2.checkbox-inline.control-label(for="replayYes") 是 
+						//- 	.col-xs-6
+						//- 		.col-xs-2
+						//- 		label.col-xs-2 是否回复:
+						//- 		label.col-xs-2.checkbox-inline.control-label(for="replayYes") 是 
 						//- 			input#replayYes(type="radio" name="doesReplay" checked)
-						//- 		label.col-sm-2.checkbox-inline.control-label(for="replayNo") 否 
+						//- 		label.col-xs-2.checkbox-inline.control-label(for="replayNo") 否 
 						//- 			input#replayNo(type="radio" name="doesReplay")
-						//- 	.col-sm-6
-						//- 		label.col-sm-2.control-label 再次来电:
-						//- 		label.col-sm-2.checkbox-inline.control-label(for="againYes") 是 
+						//- 	.col-xs-6
+						//- 		label.col-xs-2.control-label 再次来电:
+						//- 		label.col-xs-2.checkbox-inline.control-label(for="againYes") 是 
 						//- 			input#againYes(type="radio" name="callAgain" checked value="yes")
-						//- 		label.col-sm-2.checkbox-inline.control-label(for="againNo") 否 
+						//- 		label.col-xs-2.checkbox-inline.control-label(for="againNo") 否 
 						//- 			input#againNo(type="radio" name="callAgain" value="no")
 						.form-group
-							.col-sm-4
-							button.col-sm-2.btn.btn-primary(type="submit") 保存
-							button.col-sm-2.btn.btn-default(type="reset") 重置
+							.col-xs-4
+							button.col-xs-2.btn.btn-primary(type="submit") 保存
+							button.col-xs-2.btn.btn-default(type="reset") 重置
 
 
