@@ -50,7 +50,7 @@
 }
 
 .arrowRight {
-    border-color:transparent royalblue transparent transparent;
+    border-color:transparent orange transparent transparent;
     left: -15px;
 }
 .dot {
@@ -100,7 +100,7 @@
 .type {
     height: 48px;
     text-align: right;
-    font-size: 8px;
+    font-size: 15px;
     font-weight: bold;
     border-radius: 5px;
     line-height: 48px;
