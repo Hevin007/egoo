@@ -16,23 +16,27 @@ html
 				.page-header.col-xs-offset-1.col-xs-10.margin20
 					h1=title
 				.workSheet
-					form(method="post",action="/workSheet/new",role="form")
+					form(method="post",action="/workSheet/new",role="form",onsubmit="return check()")
 						input(type="hidden",name="workSheet[_id]",value="#{workSheet._id}")
 						input(type="hidden",name="workSheet[tenantid]",value="#{workSheet.tenantid}")
 						input(type="hidden",name="workSheet[agentid]",value="#{workSheet.agentid}")
 						input(type="hidden",name="workSheet[sessionid]",value="#{workSheet.sessionid}")
 						.form-group.col-xs-offset-1.col-xs-10
-							label(for="busType") 业务类型:
-							select#busType.form-control(name="workSheet[busType]",value="#{workSheet.busType}")
-								option(value="投诉举报") 投诉举报
-								option(value="申请申诉") 申请申诉
-								option(value="咨询回复") 咨询回复
+							label(for="busType") 业务类型:(必填)
+								span.errorType(style="visibility:hidden;color: red;") --请填写业务类型！
+							input#busType.form-control(name="workSheet[busType]",value="#{workSheet.busType}")
+							//- select#busType.form-control(name="workSheet[busType]",value="#{workSheet.busType}")
+							//- 	option(value="投诉举报") 投诉举报
+							//- 	option(value="申请申诉") 申请申诉
+							//- 	option(value="咨询回复") 咨询回复
 						.form-group.col-xs-offset-1.col-xs-10
-							label(for="busGroup") 业务分类:
-							select#busGroup.form-control(name="workSheet[busGroup]",value="#{workSheet.busGroup}")
-								option(value="火车票") 火车票
-								option(value="飞机票") 飞机票
-								option(value="电影票") 电影票
+							label(for="busGroup") 业务分类:(必填)
+								span.errorGroup(style="visibility:hidden;color: red;") --请填写业务分类！
+							input#busGroup.form-control(name="workSheet[busGroup]",value="#{workSheet.busGroup}")
+							//- select#busGroup.form-control(name="workSheet[busGroup]",value="#{workSheet.busGroup}")
+							//- 	option(value="火车票") 火车票
+							//- 	option(value="飞机票") 飞机票
+							//- 	option(value="电影票") 电影票
 							//- label.col-xs-1.control-label(for="busTag") 业务标签:
 							//- .col-xs-3
 							//- 	select#busTag.form-control(name="",value="",disabled)
@@ -44,18 +48,18 @@ html
 						.form-group.col-xs-offset-1.col-xs-10
 							label.control-label(for="clientName") 客户姓名:
 							input#clientName.form-control(type="text",name="workSheet[userid]",value="#{workSheet.userid}")
-						.form-group.col-xs-offset-1.col-xs-10
-							label.control-label(for="phone2") 联系电话:
-							input#phone2.form-control(type="text",name="",value="占位未用",disabled)
-						.form-group.col-xs-offset-1.col-xs-10
-							label.control-label(for="phone3") 手机号码:
-							input#phone3.form-control(name="",value="占位未用",disabled)
+						//- .form-group.col-xs-offset-1.col-xs-10
+						//- 	label.control-label(for="phone2") 联系电话:
+						//- 	input#phone2.form-control(type="text",name="",value="占位未用",disabled)
+						//- .form-group.col-xs-offset-1.col-xs-10
+						//- 	label.control-label(for="phone3") 手机号码:
+						//- 	input#phone3.form-control(name="",value="占位未用",disabled)
 						.form-group.col-xs-offset-1.col-xs-10
 							label.control-label(for="address") 联系地址:
 							input#address.form-control(name="workSheet[address]",value="#{workSheet.address}")
 						.form-group.col-xs-offset-1.col-xs-10
 							label.control-label(for="content") 内&#12288;&#12288;容:
-							textarea#content.form-control(name="workSheet[content]",value="#{workSheet.content}",rows="5")
+							textarea#content.form-control(name="workSheet[content]",value="#{workSheet.content}",rows="3")
 						//- .form-group
 						//- 	label.col-xs-1.control-label 处理结果:
 						//- .form-group
@@ -76,5 +80,4 @@ html
 							.col-xs-4
 							button.col-xs-2.btn.btn-primary(type="submit") 保存
 							button.col-xs-2.btn.btn-default(type="reset") 重置
-
-
+		script(src="/js/workSheet.js")

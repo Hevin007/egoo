@@ -115,29 +115,35 @@ exports.list = function(req,res) {
 exports.record = function(req,res) {
 	var sessionid = req.params.sessionid
 	//	 select recordurl where calluuid = sessionid
-	var mysqlConn = mysql.createConnection(mysqlConfig)
-	mysqlConn.connect();
-	var recordUrlSelectSql = 'SELECT recordurl FROM T_RECORD_INFO WHERE calluuid = ?'
-	var params = [sessionid]
-	mysqlConn.query(recordUrlSelectSql,params,function(err,result) {
+	var pool = mysql.createPool(mysqlConfig)
+	pool.getConnection(function(err,connection) {
 		if(err) {
-			console.log('recordurl SELECT err:'+err)
-		}
-		if(result[0]) {
-			res.json({
-				recordUrl: result[0].recordurl,
-				success: 1
+			console.log("connect mysql database failed!")
+		}else {
+			var recordUrlSelectSql = 'SELECT recordurl FROM T_RECORD_INFO WHERE calluuid = ?'
+			var params = [sessionid]
+			connection.query(recordUrlSelectSql,params,function(err,result) {
+				if(err) {
+					console.log('recordurl SELECT err:'+err)
+				}else {
+					if(result.length>0) {
+						res.json({
+							recordUrl: result[0].recordurl,
+							success: 1
+						})
+					}else{
+						res.json({
+							success: 0
+						})
+					}
+				}
 			})
-		}else{
-			res.json({
-				success: 0
-			})
+			pool.end()
+		//   回调 为异步，写在回调函数中
 		}
-
+		
 	})
-	mysqlConn.end()
 	
-//   回调 为异步，写在回调函数中
 }
 
 //get history
@@ -151,5 +157,15 @@ exports.history = function(req,res) {
 			workSheets: workSheets
 		});
 		
+	})
+}
+
+exports.viewSheet = function(req,res) {
+	var id = req.params.id
+	WorkSheet.findById(id,function(err,workSheet) {
+		res.render('viewSheet',{
+			title:'工单详情',
+			workSheet: workSheet
+		});
 	})
 }

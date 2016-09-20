@@ -3,6 +3,6 @@
  */
 
 $(document).ready(function (){
-      $(".line:last").remove();
+      // $(".line:last").remove();
 
 });

@@ -1,0 +1,16 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		title #{title}
+		script(src="/libs/jquery/dist/jquery.min.js")
+		link(href="/css/viewSheet.css",rel="stylesheet")
+		script(src="/js/viewSheet.js")
+	body
+		.container
+			.box
+				.arrow
+				.line
+				.dot
+				.text #{workSheet.userid}:#{workSheet.busType}-#{workSheet.busGroup}
+				.detail 来电号码:#{workSheet.phone1}

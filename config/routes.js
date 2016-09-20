@@ -10,6 +10,8 @@ module.exports = function(app) {
 	app.post("/workSheet/new",WorkSheet.save)
 	// get list workSheet
 	app.get('/list',WorkSheet.list)
+	//get viewSheet
+	app.get('/viewSheet/:id',WorkSheet.viewSheet)
 
 	// ajax post recordUrl
 	app.post('/record/:sessionid',WorkSheet.record)
