@@ -1,0 +1,36 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		title #{title}
+		script(src="/libs/jquery/dist/jquery.min.js")
+		link(href="/css/history.css",rel="stylesheet")
+		script(src="/js/history.js")
+	body
+		hr
+		.container(style="position: relative;right: 85px;")
+			input#tenantid(value="#{tenantid}",style="display:none;")
+			input#userid(value="#{userid}",style="display:none;")
+			.playerBox
+				audio#player(autoplay="autoplay",controls="controls",style="display:none;")
+			.start 2016
+			.midLine
+			each item in workSheets
+				- var color ="#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
+				.send.sendRight(style="background-color: #{color};")
+					.time.timeRight #{moment(item.meta.createdAt).format('MM/DD')}
+					.arrow.arrowRight(style="border-right-color: #{color};")
+					.dot.dotRight(style="background-color: #{color};")
+					.type.typeRight 
+						p #{item.busType}:#{item.busGroup}
+						p 来电号码:
+							span #{item.phone1}
+						p 客户姓名:
+							span #{item.userid}
+						p 联系地址:
+							span #{item.address}
+						p 内&#12288;&#12288;容:
+							span #{item.content}
+						.record 通话录音:
+						img.playBtn(src="/img/play.jpg",data-id="#{item.sessionid}")
+						img.pauseBtn(src="/img/pause.jpg",style="display: none;")

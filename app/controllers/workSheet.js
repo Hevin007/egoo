@@ -12,17 +12,15 @@ var mysqlConfig = {
 //结束
 
 exports.new = function(req,res) {
-	var phone1 = req.query.phone
-	if(!phone1) {
-		phone1=''
-	}
+
+
 	var tenantid = req.query.tenantid
 	if(!tenantid) {
-		tenantid='admin'
+		tenantid=''
 	}
 	var agentid = req.query.agentid
 	if(!agentid) {
-		agentid='admin'
+		agentid=''
 	}
 	var userid = req.query.userid
 	if(!userid) {
@@ -30,8 +28,9 @@ exports.new = function(req,res) {
 	}
 	var sessionid = req.query.sessionid
 	if(!sessionid) {
-		sessionid='admin'
+		sessionid=''
 	}
+	var phone1 = userid
 
 
 	res.render('workSheet',
@@ -148,14 +147,84 @@ exports.record = function(req,res) {
 
 //get history
 exports.history = function(req,res) {
+
+	var tenantid = req.query.tenantid
+	if(!tenantid) {
+		tenantid=''
+	}
+	var agentid = req.query.agentid
+	if(!agentid) {
+		agentid=''
+	}
+	var sessionid = req.query.sessionid
+	if(!sessionid) {
+		sessionid=''
+	}
+	var phone1 = req.query.phone1
+	if(!phone1) {
+		phone1=''
+	}
+
+	var userid = req.query.userid
+	var btnFlag = req.query.btnFlag
+	if(!btnFlag) {
+		btnFlag = 0;
+	}
+
 	WorkSheet.fetch(function(err,workSheets) {
 		if (err) {
 			console.log(err)
 		}
-		res.render('history',{
-			title:'咨询历史',
-			workSheets: workSheets
-		});
+		if(!userid) {
+			res.render('error',{
+				title: "no userid",
+				warning: "等待接通电话..." 
+			})
+		}else {
+			res.render('history',{
+				title:'咨询历史',
+				tenantid: tenantid,
+				agentid: agentid,
+				sessionid: sessionid,
+				phone1: phone1,
+				userid: userid,
+				btnFlag: btnFlag,
+				workSheets: workSheets
+			});
+			
+		}
+		
+	})
+}
+
+//get historyOne
+exports.historyOne = function(req,res) {
+
+	var tenantid = req.query.tenantid
+	if(!tenantid) {
+		tenantid=''
+	}
+
+	var agentid = req.query.agentid
+
+	WorkSheet.fetch(function(err,workSheets) {
+		if (err) {
+			console.log(err)
+		}
+		if(!agentid) {
+			res.render('error',{
+				title: "no agentid",
+				warning: "请签入..." 
+			})
+		}else {
+			res.render('historyOne',{
+				title:'咨询历史',
+				tenantid: tenantid,
+				agentid: agentid,
+				workSheets: workSheets
+			});
+			
+		}
 		
 	})
 }

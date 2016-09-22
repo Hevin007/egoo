@@ -7,21 +7,27 @@ html
 		link(href="/css/history.css",rel="stylesheet")
 		script(src="/js/history.js")
 	body
+		hr
 		.container
-			hr
+			input#tenantid(value="#{tenantid}",style="display:none;")
+			input#userid(value="#{userid}",style="display:none;")
+			input#agentid(value="#{agentid}",style="display:none;")
+			input#sessionid(value="#{sessionid}",style="display:none;")
+			input#phone1(value="#{phone1}",style="display:none;")
 			.playerBox
 				audio#player(autoplay="autoplay",controls="controls",style="display:none;")
 			.start 2016
 			.midLine
-			//- .btn
-			//- 	button.btnAdd 添加</br>工单
-			//- 	.arrow.arrowBtn
-			//- 	.dot.dotBtn
+			if btnFlag==1
+				.btn
+					button.btnAdd 添加</br>工单
+					.arrow.arrowBtn
+					.dot.dotBtn
 			- var flag = true
 			each item in workSheets
 				- var color ="#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
 				if flag
-					.send.sendRight(style="background-color: #{color};",data-id="#{item._id}")
+					.send.sendRight(style="background-color: #{color};")
 						.time.timeRight #{moment(item.meta.createdAt).format('MM/DD')}
 						.arrow.arrowRight(style="border-right-color: #{color};")
 						.dot.dotRight(style="background-color: #{color};")
@@ -40,7 +46,7 @@ html
 							img.pauseBtn(src="/img/pause.jpg",style="display: none;")
 						- flag = false
 				else
-					.send(style="background-color: #{color};",data-id="#{item._id}")
+					.send(style="background-color: #{color};")
 						.time #{moment(item.meta.createdAt).format('MM/DD')}
 						.arrow(style="border-left-color: #{color};")
 						.dot(style="background-color: #{color};")

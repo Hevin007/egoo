@@ -3,6 +3,8 @@ var WorkSheet = require('../app/controllers/workSheet')
 module.exports = function(app) {
 	//get history
 	app.get("/history",WorkSheet.history)
+	//get historyLeft
+	app.get("/historyOne",WorkSheet.historyOne)
 
 	//get new workSheet 
 	app.get("/workSheet",WorkSheet.new)

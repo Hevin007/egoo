@@ -50,6 +50,7 @@ WorkSheetSchema.statics = {
 	fetch: function(cb) {
 		return this
 			.find({})
+			.limit(20)
 			.sort({'meta.updateAt':-1})
 			.exec(cb)
 	},

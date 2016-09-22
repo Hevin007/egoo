@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     $(".start").innerHTML = year;
     $(".midLine").height($(document).height());
-    // $(".btnAdd").click(addWorkSheet);
+    $(".btnAdd").click(addWorkSheet);
 
 //点击send
     // $(".send").click(function(ev) {
@@ -65,3 +65,12 @@ $(document).ready(function () {
 
 });
 
+function addWorkSheet () {
+    var tenantid=$('#tenantid').val();
+    var agentid=$('#agentid').val();
+    var sessionid=$('#sessionid').val();
+    var phone1=$('#phone1').val();
+    var userid=$('#userid').val();
+    window.location.href="/workSheet?tenantid="+tenantid
+        +"&userid="+userid+"&sessionid="+sessionid+"&agentid="+agentid+"&phone1="+phone1;
+}

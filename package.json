@@ -1,0 +1,39 @@
+{
+  "name": "egoo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bcryptjs": "^2.3.0",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-alpha.1",
+    "express": "^4.14.0",
+    "express-logger": "^0.0.3",
+    "grunt": "^1.0.1",
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-nodemon": "^0.5.4",
+    "grunt-nodemon": "^0.4.2",
+    "jade": "^1.11.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "moment": "^2.14.1",
+    "mongoose": "^4.5.10",
+    "morgan": "^1.7.0",
+    "mysql": "^2.11.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hevin007/egoo.git"
+  },
+  "author": "hevin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hevin007/egoo/issues"
+  },
+  "homepage": "https://github.com/Hevin007/egoo#readme"
+}
