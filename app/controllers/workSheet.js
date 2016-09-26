@@ -1,15 +1,8 @@
 var _ = require('underscore')
-var WorkSheet = require('../models/workSheet')
-
-//连接mysql数据库读取录音url
 var mysql = require('mysql')
-var mysqlConfig = {
-		host: '120.25.88.24',
-		user: 'root',
-		password: 'egoonetsql3466',
-		database: 'egoo'
-	}
-//结束
+var WorkSheet = require('../models/workSheet')
+var fs = require("fs")
+
 
 exports.new = function(req,res) {
 
@@ -68,7 +61,7 @@ exports.save = function(req,res) {
 					console.log(err)
 				}
 
-				res.redirect('/history')
+				res.redirect("/history")
 			})
 		})
 	}else {
@@ -90,7 +83,8 @@ exports.save = function(req,res) {
 			if(err) {
 				console.log(err)
 			}
-			res.redirect('/history')
+			res.redirect("/history?userid="+workSheetObj.userid
+					+"&tenantid="+workSheetObj.tenantid)
 		})
 	}
 	
@@ -104,17 +98,45 @@ exports.list = function(req,res) {
 		}
 		res.render('list',{
 			title:'工单列表页',
-			workSheets: workSheets
+			workSheets: workSheets,
+			path: require.main.filename
 		});
 		
 	})
 }
 
+//list delete workSheet
+exports.del = function(req,res) {
+	var id= req.query.id
+	if(id) {
+		WorkSheet.remove({_id: id},function(err,workSheet) {
+			if (err) {
+				console.log(err)
+			}
+			else  {
+				res.json({success: 1})
+			}
+		})
+	}
+}
+
 // ajax post recordUrl
 exports.record = function(req,res) {
+	//读取配置文件
+	var recordDBJson = ''
+	try {
+		var data = fs.readFileSync('./config/recordDatabase.json')
+		recordDBJson = JSON.parse(data)
+	}catch(err) {
+		console.log(err)
+	}
+
+	var recordConfig = recordDBJson[recordDBJson.default]
+
+
 	var sessionid = req.params.sessionid
 	//	 select recordurl where calluuid = sessionid
-	var pool = mysql.createPool(mysqlConfig)
+	var pool = mysql.createPool(recordConfig)
 	pool.getConnection(function(err,connection) {
 		if(err) {
 			console.log("connect mysql database failed!")
@@ -140,9 +162,7 @@ exports.record = function(req,res) {
 			pool.end()
 		//   回调 为异步，写在回调函数中
 		}
-		
 	})
-	
 }
 
 //get history
@@ -171,30 +191,34 @@ exports.history = function(req,res) {
 		btnFlag = 0;
 	}
 
-	WorkSheet.fetch(function(err,workSheets) {
-		if (err) {
-			console.log(err)
-		}
-		if(!userid) {
-			res.render('error',{
-				title: "no userid",
-				warning: "等待接通电话..." 
+
+	if(!userid) {
+		res.render('error',{
+			title: "no userid",
+			warning: "等待接通电话..." 
+		})
+	}else {
+		WorkSheet
+			.find({userid: userid,tenantid: tenantid})
+			.limit(20)
+			.sort({'meta.updateAt':-1})
+			.exec(function(err,workSheets) {
+
+				if (err) {
+					console.log(err)
+				}
+				res.render('history',{
+					title:'咨询历史',
+					tenantid: tenantid,
+					agentid: agentid,
+					sessionid: sessionid,
+					phone1: phone1,
+					userid: userid,
+					btnFlag: btnFlag,
+					workSheets: workSheets
+				});	
 			})
-		}else {
-			res.render('history',{
-				title:'咨询历史',
-				tenantid: tenantid,
-				agentid: agentid,
-				sessionid: sessionid,
-				phone1: phone1,
-				userid: userid,
-				btnFlag: btnFlag,
-				workSheets: workSheets
-			});
-			
 		}
-		
-	})
 }
 
 //get historyOne
@@ -207,28 +231,32 @@ exports.historyOne = function(req,res) {
 
 	var agentid = req.query.agentid
 
-	WorkSheet.fetch(function(err,workSheets) {
-		if (err) {
-			console.log(err)
-		}
-		if(!agentid) {
-			res.render('error',{
-				title: "no agentid",
-				warning: "请签入..." 
+	if(!agentid) {
+		res.render('error',{
+			title: "no agentid",
+			warning: "请签入..." 
+		})
+	}else {
+		WorkSheet
+			.find({agentid: agentid,tenantid: tenantid})
+			.limit(20)
+			.sort({'meta.updateAt':-1})
+			.exec(function(err,workSheets) {
+				if (err) {
+					console.log(err)
+				}
+				res.render('historyOne',{
+					title:'咨询历史',
+					tenantid: tenantid,
+					agentid: agentid,
+					workSheets: workSheets
+				});
 			})
-		}else {
-			res.render('historyOne',{
-				title:'咨询历史',
-				tenantid: tenantid,
-				agentid: agentid,
-				workSheets: workSheets
-			});
-			
-		}
-		
-	})
+	}
 }
 
+
+//get viewSheet
 exports.viewSheet = function(req,res) {
 	var id = req.params.id
 	WorkSheet.findById(id,function(err,workSheet) {

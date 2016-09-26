@@ -1,0 +1,16 @@
+{
+	"aliyun": {
+			"host": "120.25.88.24",
+			"user": "root",
+			"password": "egoonetsql3466",
+			"database": "egoo"
+		},
+	"egooInside": {
+			"host": "10.70.10.14",
+			"user": "root",
+			"password": "Myegoo3466SQL",
+			"database": "egoo"
+	},
+	"default": "aliyun"
+}
+

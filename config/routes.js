@@ -17,4 +17,7 @@ module.exports = function(app) {
 
 	// ajax post recordUrl
 	app.post('/record/:sessionid',WorkSheet.record)
+
+	//admin delete workSheet
+	app.delete('/admin/workSheet/list', WorkSheet.del)
 }

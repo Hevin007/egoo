@@ -11,6 +11,7 @@ html
 			.row
 				.page-header
 					h1=title
+					h4=path
 				table.table.table-hover.table-bordered
 					thead
 						tr
@@ -25,6 +26,7 @@ html
 							th 联系地址
 							th 内容
 							th 创建时间
+							th 操作
 							th 通话录音
 					tbody
 						each item in workSheets
@@ -40,5 +42,6 @@ html
 								td #{item.address}
 								td #{item.content}
 								td #{moment(item.meta.createdAt).format('MM/DD/YYYY')}
+								td: button.btn.btn-danger.del(type="button",data-id="#{item._id}") 删除
 								td: button.btn.btn-default.record(type="button",data-id="#{item.sessionid}") 点击获取
 		script(src="/js/admin.js")
